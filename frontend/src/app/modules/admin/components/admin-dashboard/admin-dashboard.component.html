@@ -1,0 +1,62 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-background"></div>
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-text">
+        <h1 class="hero-title">Panneau d'Administration</h1>
+        <p class="hero-subtitle">Gérez votre boutique en toute simplicité</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dashboard Content -->
+<section class="dashboard-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div *ngFor="let stat of stats" class="stat-card" [ngClass]="'stat-' + stat.color">
+        <div class="stat-icon">
+          <span class="material-icons">{{ stat.icon }}</span>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stat.value }}</h3>
+          <p>{{ stat.title }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+      <div class="recent-activities">
+        <h3>Activités récentes</h3>
+        <div class="activity-list">
+          <div *ngFor="let activity of recentActivities" class="activity-item">
+            <div class="activity-content">
+              <p class="activity-action">{{ activity.action }}</p>
+              <p class="activity-user">{{ activity.user }}</p>
+            </div>
+            <span class="activity-time">{{ activity.time }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <h3>Actions rapides</h3>
+        <div class="action-buttons">
+          <button class="btn btn-primary">
+            <span class="material-icons">add</span>
+            Ajouter un produit
+          </button>
+          <button class="btn btn-secondary">
+            <span class="material-icons">local_offer</span>
+            Créer une promotion
+          </button>
+          <button class="btn btn-secondary">
+            <span class="material-icons">people</span>
+            Gérer les utilisateurs
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

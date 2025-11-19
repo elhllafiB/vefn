@@ -1,0 +1,93 @@
+.auth-test {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+  }
+}
+
+.auth-status {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  
+  h3 {
+    margin: 0 0 15px 0;
+    color: #155724;
+  }
+  
+  p {
+    margin: 5px 0;
+    color: #155724;
+  }
+}
+
+.auth-actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.navigation-links {
+  h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+  
+  .nav-link {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  
+  &.btn-primary {
+    background-color: #007bff;
+    color: white;
+    
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  
+  &.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    
+    &:hover {
+      background-color: #545b62;
+    }
+  }
+  
+  &.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+}

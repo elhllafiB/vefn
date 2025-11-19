@@ -1,0 +1,263 @@
+<div class="admin-promotions">
+  <!-- Header avec bouton Add -->
+  <div class="promotions-header">
+    <h2>Gestion des Promotions</h2>
+    <button class="btn btn-primary" (click)="addPromotion()">
+      <span class="btn-icon">➕</span>
+      Ajouter une promotion
+    </button>
+  </div>
+
+  <!-- Table Promotions -->
+  <div class="promotions-table">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Remise</th>
+          <th>Valide jusqu'au</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let promotion of filteredPromotions">
+          <td>{{ promotion.id }}</td>
+          <td>
+            <strong>{{ promotion.name }}</strong>
+            <br>
+            <small class="description" *ngIf="promotion.description">{{ promotion.description }}</small>
+          </td>
+          <td>
+            <span class="discount-badge">{{ promotion.discount }}</span>
+          </td>
+          <td>{{ promotion.validUntil }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="promotion.status === 'Active' ? 'active' : 'inactive'">
+              {{ promotion.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button class="btn btn-sm btn-edit" (click)="editPromotion(promotion)" title="Modifier">
+              ✏️
+            </button>
+            <button class="btn btn-sm" 
+                    [ngClass]="promotion.status === 'Active' ? 'btn-warning' : 'btn-success'" 
+                    (click)="togglePromotionStatus(promotion)"
+                    [title]="promotion.status === 'Active' ? 'Désactiver' : 'Activer'">
+              {{ promotion.status === 'Active' ? '⏸️' : '▶️' }}
+            </button>
+            <button class="btn btn-sm btn-delete" (click)="deletePromotion(promotion)" title="Supprimer">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button class="btn-pagination" [disabled]="currentPage === 1" (click)="prevPage()">
+      ⬅️ Précédent
+    </button>
+    
+    <div class="page-numbers">
+      <button 
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        class="page-btn"
+        [class.active]="currentPage === (i + 1)"
+        (click)="goToPage(i + 1)">
+        {{ i + 1 }}
+      </button>
+    </div>
+    
+    <button class="btn-pagination" [disabled]="currentPage === totalPages" (click)="nextPage()">
+      Suivant ➡️
+    </button>
+  </div>
+</div>
+
+<!-- Add Promotion Modal -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="cancelModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="header-icon">🎯</div>
+      <h3>Ajouter une promotion</h3>
+      <button class="modal-close" (click)="cancelModal()">✕</button>
+    </div>
+    
+    <div class="modal-body">
+      <form #addForm="ngForm" class="promotion-form">
+        <div class="form-group">
+          <label>
+            <span class="label-icon">🏷️</span>
+            Nom de la promotion
+          </label>
+          <input 
+            type="text" 
+            [(ngModel)]="promotionForm.name" 
+            name="name" 
+            placeholder="Ex: Black Friday, Été 2024..."
+            required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              <span class="label-icon">💰</span>
+              Remise
+            </label>
+            <input 
+              type="text" 
+              [(ngModel)]="promotionForm.discount" 
+              name="discount" 
+              placeholder="Ex: 20%, 50€..."
+              required>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <span class="label-icon">📅</span>
+              Valide jusqu'au
+            </label>
+            <input 
+              type="date" 
+              [(ngModel)]="promotionForm.validUntil" 
+              name="validUntil" 
+              required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <span class="label-icon">📝</span>
+            Description
+          </label>
+          <textarea 
+            [(ngModel)]="promotionForm.description" 
+            name="description" 
+            placeholder="Description de la promotion..."
+            rows="3"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <span class="label-icon">🔘</span>
+            Statut
+          </label>
+          <select [(ngModel)]="promotionForm.status" name="status" class="styled-select">
+            <option value="Active">✅ Active</option>
+            <option value="Inactive">❌ Inactive</option>
+          </select>
+        </div>
+
+        <div class="info-box">
+          <span class="info-icon">💡</span>
+          <p>La promotion sera visible par tous les utilisateurs une fois activée.</p>
+        </div>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelModal()">
+        <span class="btn-icon">❌</span>
+        Annuler
+      </button>
+      <button class="btn btn-primary" (click)="savePromotion()">
+        <span class="btn-icon">➕</span>
+        Ajouter la promotion
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Promotion Modal -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="cancelModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="header-icon">✏️</div>
+      <h3>Modifier la promotion</h3>
+      <button class="modal-close" (click)="cancelModal()">✕</button>
+    </div>
+    
+    <div class="modal-body">
+      <form #editForm="ngForm" class="promotion-form">
+        <div class="form-group">
+          <label>
+            <span class="label-icon">🏷️</span>
+            Nom de la promotion
+          </label>
+          <input 
+            type="text" 
+            [(ngModel)]="promotionForm.name" 
+            name="name" 
+            placeholder="Ex: Black Friday, Été 2024..."
+            required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              <span class="label-icon">💰</span>
+              Remise
+            </label>
+            <input 
+              type="text" 
+              [(ngModel)]="promotionForm.discount" 
+              name="discount" 
+              placeholder="Ex: 20%, 50€..."
+              required>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <span class="label-icon">📅</span>
+              Valide jusqu'au
+            </label>
+            <input 
+              type="date" 
+              [(ngModel)]="promotionForm.validUntil" 
+              name="validUntil" 
+              required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <span class="label-icon">📝</span>
+            Description
+          </label>
+          <textarea 
+            [(ngModel)]="promotionForm.description" 
+            name="description" 
+            placeholder="Description de la promotion..."
+            rows="3"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <span class="label-icon">🔘</span>
+            Statut
+          </label>
+          <select [(ngModel)]="promotionForm.status" name="status" class="styled-select">
+            <option value="Active">✅ Active</option>
+            <option value="Inactive">❌ Inactive</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelModal()">
+        <span class="btn-icon">❌</span>
+        Annuler
+      </button>
+      <button class="btn btn-primary" (click)="savePromotion()">
+        <span class="btn-icon">💾</span>
+        Sauvegarder
+      </button>
+    </div>
+  </div>
+</div>

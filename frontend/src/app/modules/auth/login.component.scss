@@ -1,0 +1,272 @@
+// Import SCSS color functions
+@use 'sass:color';
+
+// Variables SCSS
+$primary-color: #f34f56;
+$secondary-color: #ffffff;
+$dark-bg: #1a1a1a;
+$dark-text: #ffffff;
+$light-bg: #ffffff;
+$light-text: #333333;
+$gray-bg: #f5f5f5;
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(243, 79, 86, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
+  padding: 20px;
+
+  .auth-card {
+    background-color: $secondary-color;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    animation: slideInUp 0.6s ease-out;
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+
+      .auth-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $primary-color;
+        margin: 0 0 10px 0;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .auth-subtitle {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0;
+      }
+    }
+
+    .auth-form {
+      .error-message {
+        background-color: #fee;
+        color: #c33;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 1px solid #fcc;
+      }
+
+      .admin-info {
+        margin-bottom: 15px;
+        text-align: center;
+
+        .admin-badge {
+          display: inline-block;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          padding: 6px 15px;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+
+        .form-label {
+          display: block;
+          font-weight: 600;
+          color: $light-text;
+          margin-bottom: 8px;
+          font-size: 0.9rem;
+        }
+
+        .form-input {
+          width: 100%;
+          padding: 12px 15px;
+          border: 2px solid #e0e0e0;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: border-color 0.3s ease;
+          box-sizing: border-box;
+
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+          }
+
+          &::placeholder {
+            color: #999;
+          }
+
+          &:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+          }
+        }
+      }
+
+      .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+
+        .checkbox-label {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          .checkbox-input {
+            margin-right: 8px;
+          }
+
+          .checkbox-text {
+            font-size: 0.9rem;
+            color: $light-text;
+          }
+        }
+
+        .forgot-link {
+          color: $primary-color;
+          text-decoration: none;
+          font-size: 0.9rem;
+          font-weight: 500;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .auth-btn {
+        width: 100%;
+        background-color: $primary-color;
+        color: $secondary-color;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        &:hover:not(:disabled) {
+          background-color: color.adjust($primary-color, $lightness: -10%);
+          transform: translateY(-2px);
+        }
+
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 25px;
+
+      .auth-text {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0;
+
+        .auth-link {
+          color: $primary-color;
+          text-decoration: none;
+          font-weight: 600;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Dark Mode Styles
+:host-context(.dark-mode) {
+  .auth-container {
+    background: linear-gradient(135deg, rgba(243, 79, 86, 0.2) 0%, rgba(26, 26, 26, 0.9) 100%);
+
+    .auth-card {
+      background-color: $dark-bg;
+
+      .auth-header {
+        .auth-title {
+          color: $primary-color;
+        }
+
+        .auth-subtitle {
+          color: #ccc;
+        }
+      }
+
+      .auth-form {
+        .form-group {
+          .form-label {
+            color: $dark-text;
+          }
+
+          .form-input {
+            background-color: color.adjust($dark-bg, $lightness: 10%);
+            color: $dark-text;
+            border-color: #444;
+
+            &:focus {
+              border-color: $primary-color;
+            }
+
+            &::placeholder {
+              color: #666;
+            }
+          }
+        }
+
+        .form-options {
+          .checkbox-text {
+            color: $dark-text;
+          }
+        }
+      }
+
+      .auth-footer {
+        .auth-text {
+          color: #ccc;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 10px;
+
+    .auth-card {
+      padding: 30px 20px;
+    }
+  }
+}

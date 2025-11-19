@@ -1,0 +1,68 @@
+<div class="user-profile">
+  <div class="profile-container">
+    <!-- Avatar Section -->
+    <div class="profile-avatar-section">
+      <div class="avatar-wrapper">
+        <div class="avatar-circle">👤</div>
+        <button class="avatar-edit-btn" type="button">
+          📷
+        </button>
+      </div>
+      <h2 class="profile-name">{{ user.name }}</h2>
+      <p class="profile-email">{{ user.email }}</p>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="profile-form">
+      <div class="form-section">
+        <h3 class="section-title">Informations personnelles</h3>
+        
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">
+                <span class="label-icon">👤</span>
+                Nom complet
+              </label>
+              <input type="text" id="name" [(ngModel)]="user.name" name="name" class="form-control" placeholder="Votre nom complet">
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">
+                <span class="label-icon">📞</span>
+                Téléphone
+              </label>
+              <input type="tel" id="phone" [(ngModel)]="user.phone" name="phone" class="form-control" placeholder="+33 6 12 34 56 78">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">
+              <span class="label-icon">📧</span>
+              Email
+            </label>
+            <input type="email" id="email" [(ngModel)]="user.email" name="email" class="form-control" placeholder="votre@email.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="address">
+              <span class="label-icon">📍</span>
+              Adresse
+            </label>
+            <textarea id="address" [(ngModel)]="user.address" name="address" class="form-control" rows="3" placeholder="Votre adresse complète"></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+              Annuler
+            </button>
+            <button type="button" class="btn btn-primary" (click)="saveProfile()">
+              <span class="btn-icon">💾</span>
+              Sauvegarder
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

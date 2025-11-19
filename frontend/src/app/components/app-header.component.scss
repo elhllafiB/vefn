@@ -1,0 +1,530 @@
+// Import SCSS color functions
+@use 'sass:color';
+
+// Variables SCSS
+$primary-color: #f34f56;
+$secondary-color: #ffffff;
+$dark-bg: #1a1a1a;
+$dark-text: #ffffff;
+$light-bg: #ffffff;
+$light-text: #333333;
+$gray-bg: #f5f5f5;
+
+// Marquee Banner
+.marquee-banner {
+  background-color: $primary-color;
+  color: $secondary-color;
+  padding: 8px 0;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+
+  .marquee-content {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 14px;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+// Main Header
+.main-header {
+  background-color: $secondary-color;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+
+  .container {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    gap: 20px;
+  }
+
+  // Menu Hamburger
+  .menu-toggle {
+    background-color: $primary-color;
+    border: 2px solid #000;
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: color.adjust($primary-color, $lightness: -10%);
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 3px;
+      background-color: $secondary-color;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    &.active {
+      .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+    }
+  }
+
+  .logo {
+    flex: 1;
+    text-align: center;
+
+    .logo-link {
+      text-decoration: none;
+      display: inline-block;
+
+      .logo-image {
+        height: 80px;
+        width: auto;
+        max-width: 400px;
+        object-fit: contain;
+        transition: all 0.3s ease;
+
+        &:hover {
+          opacity: 0.8;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    justify-content: flex-end;
+
+    // Boutons d'action
+    .action-btn {
+      background-color: $primary-color;
+      border: 2px solid #000;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-decoration: none;
+      color: $secondary-color;
+
+      &:hover {
+        background-color: color.adjust($primary-color, $lightness: -10%);
+        transform: translateY(-2px);
+      }
+
+      .btn-icon {
+        font-size: 18px;
+        color: $secondary-color;
+      }
+
+      .btn-text {
+        font-weight: 600;
+        font-size: 14px;
+        margin-left: 8px;
+      }
+
+      // Boutons carrés
+      &.home-btn, &.search-btn, &.cart-btn {
+        width: 50px;
+        height: 50px;
+      }
+
+      // Bouton rectangulaire pour Mon Compte
+      &.account-btn {
+        padding: 12px 20px;
+        height: 50px;
+        min-width: 120px;
+      }
+
+      // Compteur de panier
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff0000;
+        color: $secondary-color;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid $secondary-color;
+      }
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 2px solid $primary-color;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $secondary-color;
+      }
+
+      .theme-icon {
+        font-size: 18px;
+      }
+    }
+
+    // Language Selector Style Apple
+    .language-selector-apple {
+      position: relative;
+
+      .lang-btn {
+        background-color: $secondary-color;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $light-text;
+        min-width: 80px;
+
+        &:hover {
+          background-color: #f9fafb;
+          border-color: #9ca3af;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: 0 0 0 3px rgba(243, 79, 86, 0.1);
+        }
+
+        .lang-text {
+          font-size: 13px;
+        }
+
+        .lang-arrow {
+          font-size: 10px;
+          transition: transform 0.2s ease;
+        }
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: $secondary-color;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        min-width: 140px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.2s ease;
+        z-index: 1000;
+
+        &.open {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .lang-option {
+          width: 100%;
+          padding: 10px 12px;
+          border: none;
+          background: none;
+          text-align: left;
+          cursor: pointer;
+          font-size: 14px;
+          color: $light-text;
+          transition: background-color 0.2s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          &:first-child {
+            border-radius: 8px 8px 0 0;
+          }
+
+          &:last-child {
+            border-radius: 0 0 8px 8px;
+          }
+
+          &:hover {
+            background-color: #f9fafb;
+          }
+
+          &.active {
+            background-color: rgba(243, 79, 86, 0.1);
+            color: $primary-color;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Menu latéral
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color: $primary-color;
+    border-right: 2px solid #000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+
+    .side-menu.open & {
+      transform: translateX(0);
+    }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: $secondary-color;
+    border: 2px solid #000;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: $primary-color;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: color.adjust($primary-color, $lightness: -10%);
+      color: $secondary-color;
+    }
+  }
+
+  .menu-nav {
+    padding: 80px 0 20px;
+    height: 100%;
+    overflow-y: auto;
+
+    .menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+        a {
+          display: block;
+          padding: 20px 30px;
+          color: $secondary-color;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+
+        &.has-submenu {
+          .submenu {
+            background-color: rgba(0, 0, 0, 0.2);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+
+            &.open {
+              max-height: 200px;
+            }
+
+            li a {
+              padding: 15px 50px;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark Mode Styles
+:host-context(.dark-mode) {
+  .main-header {
+    background-color: $dark-bg;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+
+    .logo .logo-link .logo-image {
+      filter: invert(1); // Rend l'image blanche en mode sombre
+    }
+
+    .header-actions {
+      .language-selector-apple {
+        .lang-btn {
+          background-color: $dark-bg;
+          color: $dark-text;
+          border-color: #444;
+
+          &:hover {
+            background-color: color.adjust($dark-bg, $lightness: 10%);
+            border-color: #666;
+          }
+        }
+
+        .lang-dropdown {
+          background-color: $dark-bg;
+          border-color: #444;
+
+          .lang-option {
+            color: $dark-text;
+
+            &:hover {
+              background-color: color.adjust($dark-bg, $lightness: 10%);
+            }
+
+            &.active {
+              background-color: rgba(243, 79, 86, 0.2);
+              color: $primary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .main-header {
+    .header-content {
+      gap: 10px;
+    }
+
+    .header-actions {
+      gap: 10px;
+
+      .action-btn {
+        &.account-btn {
+          min-width: 100px;
+          padding: 10px 15px;
+
+          .btn-text {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .logo .logo-link .logo-image {
+      height: 70px;
+      max-width: 350px;
+    }
+  }
+
+  .side-menu .menu-content {
+    width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header {
+    .container {
+      padding: 0 5px;
+    }
+
+    .header-content {
+      padding: 10px 0;
+    }
+
+    .logo .logo-link .logo-image {
+      height: 60px;
+      max-width: 280px;
+    }
+
+    .header-actions {
+      .action-btn {
+        width: 45px;
+        height: 45px;
+
+        &.account-btn {
+          min-width: 90px;
+          padding: 8px 12px;
+          height: 45px;
+
+          .btn-text {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+}

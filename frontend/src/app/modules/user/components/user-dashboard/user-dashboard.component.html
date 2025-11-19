@@ -1,0 +1,67 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-background"></div>
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-text">
+        <h1 class="hero-title">Mon Espace Personnel</h1>
+        <p class="hero-subtitle">Bienvenue dans votre espace dédié</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dashboard Content -->
+<section class="dashboard-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div *ngFor="let stat of userStats" class="stat-card" [ngClass]="'stat-' + stat.color">
+        <div class="stat-icon">
+          <span class="material-icons">{{ stat.icon }}</span>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stat.value }}</h3>
+          <p>{{ stat.title }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+      <div class="recent-orders">
+        <h3>Commandes récentes</h3>
+        <div class="orders-list">
+          <div *ngFor="let order of recentOrders" class="order-item">
+            <div class="order-info">
+              <p class="order-id">{{ order.id }}</p>
+              <p class="order-date">{{ order.date }}</p>
+            </div>
+            <div class="order-details">
+              <p class="order-total">{{ order.total }}</p>
+              <span class="order-status" [ngClass]="order.status.toLowerCase().replace(' ', '-')">
+                {{ order.status }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <h3>Actions rapides</h3>
+        <div class="action-buttons">
+          <button class="btn btn-primary">
+            <span class="material-icons">shopping_bag</span>
+            Voir les produits
+          </button>
+          <button class="btn btn-secondary">
+            <span class="material-icons">shopping_cart</span>
+            Mon panier
+          </button>
+          <button class="btn btn-secondary">
+            <span class="material-icons">person</span>
+            Mon profil
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

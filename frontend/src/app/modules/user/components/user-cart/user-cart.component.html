@@ -1,0 +1,83 @@
+<!-- Cart Header -->
+<div class="cart-header-banner">
+  <h1 class="cart-title">Mon Panier</h1>
+</div>
+
+<div class="cart-container" *ngIf="cartItems.length > 0; else emptyCart">
+  
+  <!-- Left Panel - Product List -->
+  <div class="cart-items-panel">
+    <div class="cart-item-card" *ngFor="let item of cartItems">
+      <!-- Product Image -->
+      <div class="product-image-wrapper">
+        <span class="product-emoji">{{ item.image }}</span>
+        <span class="badge-nouveau" *ngIf="item.badge">Nouveautés</span>
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <h3 class="product-name">{{ item.name }}</h3>
+        <p class="product-description">{{ item.description || getProductDescription(item) }}</p>
+        <p class="product-price">€{{ item.price.toFixed(2) }}</p>
+      </div>
+
+      <!-- Quantity Selector -->
+      <div class="quantity-selector">
+        <button class="qty-btn minus" (click)="updateQuantity(item.id, -1)">−</button>
+        <span class="qty-value">{{ item.quantity }}</span>
+        <button class="qty-btn plus" (click)="updateQuantity(item.id, 1)">+</button>
+      </div>
+
+      <!-- Remove Button -->
+      <button class="delete-btn" (click)="removeItem(item.id)" aria-label="Supprimer">
+        🗑️
+      </button>
+    </div>
+  </div>
+
+  <!-- Right Panel - Order Summary -->
+  <div class="order-summary-panel">
+    <div class="summary-card">
+      <h2 class="summary-title">Résumé de la Commande</h2>
+      
+      <div class="summary-details">
+        <div class="summary-row">
+          <span class="summary-label">Subtotal</span>
+          <span class="summary-value">€{{ getSubtotal().toFixed(2) }}</span>
+        </div>
+        
+        <div class="summary-row">
+          <span class="summary-label">Livraison</span>
+          <span class="summary-value shipping-free">Gratuit</span>
+        </div>
+        
+        <div class="summary-row total-row">
+          <span class="summary-label">Total</span>
+          <span class="summary-value total-amount">€{{ getTotal().toFixed(2) }}</span>
+        </div>
+      </div>
+
+      <div class="summary-actions">
+        <button class="btn-proceed" (click)="proceedToPayment()">
+          PROCÉDER AU PAIEMENT
+        </button>
+        
+        <button class="btn-continue" (click)="continueShopping()">
+          CONTINUER LES ACHATS
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Empty Cart Template -->
+<ng-template #emptyCart>
+  <div class="empty-cart">
+    <div class="empty-cart-icon">🛒</div>
+    <h2>Votre panier est vide</h2>
+    <p>Aucun produit dans votre panier. Commencez à ajouter des produits !</p>
+    <button class="btn-continue" (click)="continueShopping()">
+      CONTINUER LES ACHATS
+    </button>
+  </div>
+</ng-template>

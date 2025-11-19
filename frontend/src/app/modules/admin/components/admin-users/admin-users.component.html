@@ -1,0 +1,235 @@
+<div class="admin-users">
+  <!-- Header avec bouton Add -->
+  <div class="users-header">
+    <h2>Gestion des Utilisateurs</h2>
+    <button class="btn btn-primary" (click)="addUser()">
+      <span class="btn-icon">➕</span>
+      Ajouter un utilisateur
+    </button>
+  </div>
+
+  <!-- Table Users -->
+  <div class="users-table">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="role-badge" [ngClass]="user.role === 'ROLE_ADMIN' ? 'admin' : 'user'">
+              {{ user.role === 'ROLE_ADMIN' ? 'Admin' : 'Utilisateur' }}
+            </span>
+          </td>
+          <td>
+            <span class="status-badge" [ngClass]="user.status === 'Actif' ? 'active' : 'inactive'">
+              {{ user.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button class="btn btn-sm btn-edit" (click)="editUser(user)" title="Modifier">
+              ✏️
+            </button>
+            <button class="btn btn-sm" 
+                    [ngClass]="user.status === 'Actif' ? 'btn-warning' : 'btn-success'" 
+                    (click)="toggleUserStatus(user)"
+                    [title]="user.status === 'Actif' ? 'Désactiver' : 'Activer'">
+              {{ user.status === 'Actif' ? '🚫' : '✅' }}
+            </button>
+            <button class="btn btn-sm btn-delete" (click)="deleteUser(user)" title="Supprimer">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button class="btn-pagination" [disabled]="currentPage === 1" (click)="prevPage()">
+      ⬅️ Précédent
+    </button>
+    
+    <div class="page-numbers">
+      <button 
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        class="page-btn"
+        [class.active]="currentPage === (i + 1)"
+        (click)="goToPage(i + 1)">
+        {{ i + 1 }}
+      </button>
+    </div>
+    
+    <button class="btn-pagination" [disabled]="currentPage === totalPages" (click)="nextPage()">
+      Suivant ➡️
+    </button>
+  </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="cancelModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="header-icon">👤</div>
+      <h3>Ajouter un utilisateur</h3>
+      <button class="modal-close" (click)="cancelModal()">✕</button>
+    </div>
+    
+    <div class="modal-body">
+      <form #addForm="ngForm" class="user-form">
+        <div class="form-group">
+          <label>
+            <span class="label-icon">👤</span>
+            Nom complet
+          </label>
+          <input 
+            type="text" 
+            [(ngModel)]="userForm.name" 
+            name="name" 
+            placeholder="Entrez le nom complet"
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <span class="label-icon">📧</span>
+            Email
+          </label>
+          <input 
+            type="email" 
+            [(ngModel)]="userForm.email" 
+            name="email" 
+            placeholder="exemple@email.com"
+            required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              <span class="label-icon">🎭</span>
+              Rôle
+            </label>
+            <select [(ngModel)]="userForm.role" name="role" class="styled-select">
+              <option value="ROLE_USER">👥 Utilisateur</option>
+              <option value="ROLE_ADMIN">👨‍💼 Administrateur</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <span class="label-icon">🔘</span>
+              Statut
+            </label>
+            <select [(ngModel)]="userForm.status" name="status" class="styled-select">
+              <option value="Actif">✅ Actif</option>
+              <option value="Inactif">❌ Inactif</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <span class="info-icon">💡</span>
+          <p>L'utilisateur recevra un email de bienvenue après création.</p>
+        </div>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelModal()">
+        <span class="btn-icon">❌</span>
+        Annuler
+      </button>
+      <button class="btn btn-primary" (click)="saveUser()">
+        <span class="btn-icon">➕</span>
+        Ajouter l'utilisateur
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="cancelModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="header-icon">✏️</div>
+      <h3>Modifier l'utilisateur</h3>
+      <button class="modal-close" (click)="cancelModal()">✕</button>
+    </div>
+    
+    <div class="modal-body">
+      <form #editForm="ngForm" class="user-form">
+        <div class="form-group">
+          <label>
+            <span class="label-icon">👤</span>
+            Nom complet
+          </label>
+          <input 
+            type="text" 
+            [(ngModel)]="userForm.name" 
+            name="name" 
+            placeholder="Entrez le nom complet"
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label>
+            <span class="label-icon">📧</span>
+            Email
+          </label>
+          <input 
+            type="email" 
+            [(ngModel)]="userForm.email" 
+            name="email" 
+            placeholder="exemple@email.com"
+            required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              <span class="label-icon">🎭</span>
+              Rôle
+            </label>
+            <select [(ngModel)]="userForm.role" name="role" class="styled-select">
+              <option value="ROLE_USER">👥 Utilisateur</option>
+              <option value="ROLE_ADMIN">👨‍💼 Administrateur</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <span class="label-icon">🔘</span>
+              Statut
+            </label>
+            <select [(ngModel)]="userForm.status" name="status" class="styled-select">
+              <option value="Actif">✅ Actif</option>
+              <option value="Inactif">❌ Inactif</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelModal()">
+        <span class="btn-icon">❌</span>
+        Annuler
+      </button>
+      <button class="btn btn-primary" (click)="saveUser()">
+        <span class="btn-icon">💾</span>
+        Sauvegarder
+      </button>
+    </div>
+  </div>
+</div>

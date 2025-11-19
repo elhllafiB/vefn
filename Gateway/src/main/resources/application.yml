@@ -1,0 +1,44 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: Gateway
+  cloud:
+    gateway:
+      routes:
+        # Route pour les endpoints d'authentification publics (sans token) - DOIT être en premier
+        - id: user-service-public-register
+          uri: lb://user-service
+          predicates:
+            - Path=/authh/controller/**
+          filters:
+          - name: AuthenticationFilter
+
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: cart-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/cart/**
+          filters:
+            - name: AuthenticationFilter
+
+
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true

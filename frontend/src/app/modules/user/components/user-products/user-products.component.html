@@ -1,0 +1,99 @@
+<!-- Products Section -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Catalogue Produits</h2>
+      <p class="section-subtitle">Découvrez tous nos produits disponibles</p>
+    </div>
+
+    <div class="categories-container">
+      <div class="category-section" *ngFor="let category of categories">
+        <!-- Titre de la catégorie -->
+        <div class="category-title-section">
+          <h3 class="category-title">{{ category.name }}</h3>
+        </div>
+
+        <!-- Grille de produits -->
+        <div class="products-grid">
+          <div class="product-card" *ngFor="let product of getVisibleProducts(category)">
+            <!-- Image du produit avec badges -->
+            <div class="product-image-container">
+              <div class="product-image" (click)="viewProduct(product)">
+                <span class="product-emoji">{{ product.image }}</span>
+              </div>
+              
+              <!-- Badge TOP VENTE -->
+              <div class="product-badge top-sales" *ngIf="product.badge === 'TOP VENTE'">
+                TOP VENTE
+              </div>
+              
+              <!-- Badge LIMITED OFFER -->
+              <div class="product-badge limited-offer" *ngIf="product.badge === 'LIMITED OFFER'">
+                ⏰ LIMITED OFFER
+              </div>
+              
+              <!-- Badge de réduction -->
+              <div class="product-badge discount">
+                -{{ product.discount }}%
+              </div>
+            </div>
+
+            <!-- Contenu de la card -->
+            <div class="product-content">
+              <!-- Nom du produit -->
+              <h4 class="product-name">{{ truncateName(product.name) }}</h4>
+
+              <!-- Disponibilité -->
+              <div class="product-availability">
+                <span class="availability-icon">✓</span>
+                <span class="availability-text">DISPONIBLE</span>
+              </div>
+
+              <!-- Prix -->
+              <div class="product-pricing">
+                <div class="price-container">
+                  <span class="current-price">€{{ product.price.toFixed(2) }}</span>
+                  <span class="old-price">€{{ product.oldPrice.toFixed(2) }}</span>
+                </div>
+                <div class="save-badge">AHORRA {{ product.discount }}%</div>
+              </div>
+
+              <!-- Évaluation -->
+              <div class="product-rating">
+                <div class="stars-container">
+                  <span class="star" *ngFor="let star of generateStars(product.rating)" 
+                        [class]="star === 1 ? 'star-full' : star === 0.5 ? 'star-half' : 'star-empty'">
+                    ★
+                  </span>
+                </div>
+                <div class="rating-text">Excellent {{ product.rating }} | {{ product.reviews }} Reviews</div>
+                <div class="sales-indicator">
+                  <span class="fire-icon">🔥</span>
+                  {{ product.sales }}+
+                </div>
+              </div>
+
+              <!-- Boutons d'action -->
+              <div class="product-actions">
+                <button class="buy-button" (click)="addToCart(product)">🛒 Acheter maintenant</button>
+                <button class="cart-button" (click)="addToCart(product)">
+                  <span class="cart-icon">🛒</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="category-actions">
+          <!-- Bouton "Voir plus de produits" (local) -->
+          <div class="show-more-container" *ngIf="hasMoreProducts(category)">
+            <button class="show-more-button" (click)="showMoreProducts(category.name)">
+              Voir plus de produits ({{ getRemainingProducts(category) }} restants)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

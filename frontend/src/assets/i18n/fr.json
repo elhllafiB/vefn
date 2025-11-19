@@ -1,0 +1,78 @@
+{
+  "HEADER": {
+    "LOGO": "Boutique App",
+    "HOME": "Accueil",
+    "SEARCH": "Rechercher",
+    "CART": "Panier",
+    "MY_ACCOUNT": "Mon compte",
+    "LOGIN": "Login",
+    "TOGGLE_THEME": "Changer le thème",
+    "LANGUAGE": "Changer la langue"
+  },
+  "MENU": {
+    "HOME": "Accueil",
+    "CATEGORIES": "Catégories",
+    "BUNDLE_SAVE": "Bundle & Save",
+    "NEWS": "Nouveautés",
+    "ABOUT_US": "À propos de nous",
+    "CONTACT": "Contact",
+    "MY_ACCOUNT": "Mon compte"
+  },
+  "CATEGORIES": {
+    "HOME": "Maison",
+    "TECHNOLOGY": "Technologie",
+    "DECORATION": "Décoration",
+    "SCENT": "Parfums"
+  },
+  "HOME": {
+    "HERO_TITLE": "Découvrez nos produits",
+    "HERO_SUBTITLE": "Trouvez tout ce dont vous avez besoin pour votre maison avec la meilleure qualité et des prix incroyables",
+    "HERO_BUTTON": "Voir les produits",
+    "PRODUCTS_TITLE": "Nos Produits",
+    "PRODUCTS_SUBTITLE": "Explorez nos catégories et trouvez les produits parfaits pour vous",
+    "ADD_TO_CART": "Ajouter au panier"
+  },
+  "AUTH": {
+    "LOGIN_TITLE": "Connexion",
+    "LOGIN_SUBTITLE": "Accédez à votre compte pour continuer",
+    "REGISTER_TITLE": "Créer un compte",
+    "REGISTER_SUBTITLE": "Rejoignez-nous et découvrez des produits incroyables",
+    "NAME": "Nom complet",
+    "EMAIL": "Adresse e-mail",
+    "PASSWORD": "Mot de passe",
+    "CONFIRM_PASSWORD": "Confirmer le mot de passe",
+    "NAME_PLACEHOLDER": "Entrez votre nom complet",
+    "EMAIL_PLACEHOLDER": "votre@email.com",
+    "PASSWORD_PLACEHOLDER": "Minimum 6 caractères",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Répétez votre mot de passe",
+    "REMEMBER_ME": "Se souvenir de moi",
+    "FORGOT_PASSWORD": "Mot de passe oublié ?",
+    "AGREE_TERMS": "J'accepte les termes et conditions",
+    "LOGIN_BUTTON": "Se connecter",
+    "REGISTER_BUTTON": "Créer un compte",
+    "NO_ACCOUNT": "Vous n'avez pas de compte ?",
+    "HAVE_ACCOUNT": "Vous avez déjà un compte ?",
+    "REGISTER_LINK": "Inscrivez-vous ici",
+    "LOGIN_LINK": "Connectez-vous ici"
+  },
+  "FOOTER": {
+    "COMPANY": "Entreprise",
+    "SUPPORT": "Support",
+    "LEGAL": "Légal",
+    "ABOUT_US": "À propos de nous",
+    "CAREERS": "Carrières",
+    "PRESS": "Presse",
+    "HELP_CENTER": "Centre d'aide",
+    "SHIPPING": "Livraison",
+    "RETURNS": "Retours",
+    "PRIVACY_POLICY": "Politique de confidentialité",
+    "TERMS_OF_SERVICE": "Conditions d'utilisation",
+    "COOKIE_POLICY": "Politique des cookies",
+    "NEWSLETTER": "Newsletter",
+    "NEWSLETTER_DESC": "Abonnez-vous pour recevoir des offres exclusives et des nouveautés",
+    "EMAIL_PLACEHOLDER": "Votre adresse e-mail",
+    "SUBSCRIBE": "S'abonner",
+    "COMPANY_NAME": "Boutique App",
+    "ALL_RIGHTS_RESERVED": "Tous droits réservés"
+  }
+}

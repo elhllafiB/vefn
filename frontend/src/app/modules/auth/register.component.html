@@ -1,0 +1,86 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1 class="auth-title">{{ 'AUTH.REGISTER_TITLE' | translate }}</h1>
+      <p class="auth-subtitle">{{ 'AUTH.REGISTER_SUBTITLE' | translate }}</p>
+    </div>
+
+    <form class="auth-form" (ngSubmit)="onSubmit()" #authForm="ngForm">
+      <div class="form-group">
+        <label for="name" class="form-label">{{ 'AUTH.NAME' | translate }}</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="registerForm.name"
+          required
+          class="form-input"
+          placeholder="{{ 'AUTH.NAME_PLACEHOLDER' | translate }}"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">{{ 'AUTH.EMAIL' | translate }}</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="registerForm.email"
+          required
+          email
+          class="form-input"
+          placeholder="{{ 'AUTH.EMAIL_PLACEHOLDER' | translate }}"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">{{ 'AUTH.PASSWORD' | translate }}</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="registerForm.password"
+          required
+          minlength="6"
+          class="form-input"
+          placeholder="{{ 'AUTH.PASSWORD_PLACEHOLDER' | translate }}"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">{{ 'AUTH.CONFIRM_PASSWORD' | translate }}</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="registerForm.confirmPassword"
+          required
+          class="form-input"
+          placeholder="{{ 'AUTH.CONFIRM_PASSWORD_PLACEHOLDER' | translate }}"
+        >
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" class="checkbox-input" required>
+          <span class="checkbox-text">{{ 'AUTH.AGREE_TERMS' | translate }}</span>
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        class="auth-btn"
+        [disabled]="!authForm.form.valid"
+      >
+        {{ 'AUTH.REGISTER_BUTTON' | translate }}
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p class="auth-text">
+        {{ 'AUTH.HAVE_ACCOUNT' | translate }}
+        <a routerLink="/login" class="auth-link">{{ 'AUTH.LOGIN_LINK' | translate }}</a>
+      </p>
+    </div>
+  </div>
+</div>

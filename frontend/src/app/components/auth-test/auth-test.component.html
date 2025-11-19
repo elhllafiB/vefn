@@ -1,0 +1,32 @@
+<div class="auth-test">
+  <h2>Test d'authentification</h2>
+  
+  <div class="auth-status" *ngIf="isAuthenticated()">
+    <h3>Utilisateur connecté</h3>
+    <p><strong>Nom:</strong> {{ getCurrentUser()?.name }}</p>
+    <p><strong>Email:</strong> {{ getCurrentUser()?.email }}</p>
+    <p><strong>Rôles:</strong> {{ getCurrentRoles().join(', ') }}</p>
+  </div>
+  
+  <div class="auth-actions">
+    <button class="btn btn-primary" (click)="loginAsAdmin()">
+      Se connecter en tant qu'Admin
+    </button>
+    <button class="btn btn-secondary" (click)="loginAsUser()">
+      Se connecter en tant qu'Utilisateur
+    </button>
+    <button class="btn btn-danger" (click)="logout()" *ngIf="isAuthenticated()">
+      Se déconnecter
+    </button>
+  </div>
+  
+  <div class="navigation-links">
+    <h3>Navigation</h3>
+    <a routerLink="/admin" class="nav-link" *ngIf="isAuthenticated()">
+      Espace Admin
+    </a>
+    <a routerLink="/user" class="nav-link" *ngIf="isAuthenticated()">
+      Espace Utilisateur
+    </a>
+  </div>
+</div>

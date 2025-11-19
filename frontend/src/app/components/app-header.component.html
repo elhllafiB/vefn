@@ -1,0 +1,102 @@
+<!-- Bannière défilante -->
+<div class="marquee-banner">
+  <div class="marquee-content">
+    🚚 Livraison GRATUITE sur commandes +50€ | ✨ 30 jours d'essai | 🛡️ Garantie de satisfaction
+  </div>
+</div>
+
+<!-- Header principal -->
+<header class="main-header">
+  <div class="container">
+    <div class="header-content">
+      <!-- Menu Hamburger -->
+      <button class="menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <!-- Logo -->
+      <div class="logo">
+        <a routerLink="/" class="logo-link">
+          <img src="assets/image/HumLogo.png" alt="HumbleHome" class="logo-image">
+        </a>
+      </div>
+
+      <!-- Boutons d'action -->
+      <div class="header-actions">
+        <!-- Bouton Accueil -->
+        <button class="action-btn home-btn" routerLink="/" [attr.aria-label]="'HEADER.HOME' | translate">
+          <span class="btn-icon">🏠</span>
+        </button>
+
+        <!-- Bouton Recherche -->
+        <button class="action-btn search-btn" (click)="toggleSearch()" [attr.aria-label]="'HEADER.SEARCH' | translate">
+          <span class="btn-icon">🔍</span>
+        </button>
+
+        <!-- Bouton Panier -->
+        <button class="action-btn cart-btn" (click)="toggleCart()" [attr.aria-label]="'HEADER.CART' | translate">
+          <span class="btn-icon">🛒</span>
+          <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+        </button>
+
+        <!-- Toggle Dark Mode -->
+        <button class="theme-toggle" (click)="toggleDarkMode()" [attr.aria-label]="'HEADER.TOGGLE_THEME' | translate">
+          <span class="theme-icon">{{ isDarkMode ? '🌙' : '☀️' }}</span>
+        </button>
+
+        <!-- Language Selector Style Apple -->
+        <div class="language-selector-apple">
+          <button class="lang-btn" (click)="toggleLanguageMenu()" [attr.aria-label]="'HEADER.LANGUAGE' | translate">
+            <span class="lang-text">{{ getLanguageDisplay() }}</span>
+            <span class="lang-arrow">▼</span>
+          </button>
+          <div class="lang-dropdown" [class.open]="isLanguageMenuOpen">
+            <button class="lang-option" (click)="changeLanguage('fr')" [class.active]="currentLanguage === 'fr'">
+              🇫🇷 Français
+            </button>
+            <button class="lang-option" (click)="changeLanguage('en')" [class.active]="currentLanguage === 'en'">
+              🇺🇸 English
+            </button>
+            <button class="lang-option" (click)="changeLanguage('es')" [class.active]="currentLanguage === 'es'">
+              🇪🇸 Español
+            </button>
+          </div>
+        </div>
+
+        <!-- Bouton Login -->
+        <button class="action-btn account-btn" routerLink="/login" [attr.aria-label]="'HEADER.LOGIN' | translate">
+          <span class="btn-icon">👤</span>
+          <span class="btn-text">{{ 'HEADER.LOGIN' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Menu latéral -->
+<div class="side-menu" [class.open]="isMenuOpen" (click)="closeMenu()">
+  <div class="menu-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeMenu()">✕</button>
+    
+    <nav class="menu-nav">
+      <ul class="menu-list">
+        <li><a routerLink="/" (click)="closeMenu()">{{ 'MENU.HOME' | translate }}</a></li>
+        <li class="has-submenu">
+          <a href="#" (click)="toggleSubmenu($event)">{{ 'MENU.CATEGORIES' | translate }} ▼</a>
+          <ul class="submenu" [class.open]="isSubmenuOpen">
+            <li *ngFor="let category of categories">
+              <a href="#" (click)="goToCategory(category)">{{ category }}</a>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#" (click)="closeMenu()">{{ 'MENU.BUNDLE_SAVE' | translate }}</a></li>
+        <li><a href="#" (click)="closeMenu()">{{ 'MENU.NEWS' | translate }}</a></li>
+        <li><a href="#" (click)="closeMenu()">{{ 'MENU.ABOUT_US' | translate }}</a></li>
+        <li><a href="#" (click)="closeMenu()">{{ 'MENU.CONTACT' | translate }}</a></li>
+        <li><a routerLink="/login" (click)="closeMenu()">{{ 'MENU.MY_ACCOUNT' | translate }}</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>

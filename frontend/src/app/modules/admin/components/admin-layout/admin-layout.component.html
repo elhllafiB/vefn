@@ -1,0 +1,44 @@
+<div class="admin-layout">
+  <!-- Backdrop -->
+  <div class="sidebar-backdrop" *ngIf="sidebarOpen" (click)="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar" [class.sidebar-open]="sidebarOpen">
+    <!-- Header -->
+    <div class="sidebar-header">
+      <h2 class="sidebar-title">Administration</h2>
+      <button class="close-btn" (click)="closeSidebar()" aria-label="Fermer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navigation -->
+    <ul class="sidebar-menu">
+      <li *ngFor="let item of adminMenuItems" class="menu-item">
+        <a [routerLink]="item.path" routerLinkActive="active" class="menu-link" (click)="closeSidebarOnClick()">
+          <span class="menu-icon">{{ item.icon }}</span>
+          <span class="menu-text">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">👨‍💼</div>
+        <div class="user-details">
+          <p class="user-name">Admin</p>
+          <p class="user-email">admin&#64;humblehome.com</p>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
